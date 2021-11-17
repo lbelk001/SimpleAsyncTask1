@@ -1,6 +1,7 @@
 package edu.mssu.cis385.simpleasynctask;
 
 import android.os.AsyncTask;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
@@ -10,6 +11,7 @@ import java.util.Random;
 public class SimpleAsyncTask  extends AsyncTask<Void, Void, String> {
 
     private WeakReference<TextView> mTextView;
+    private WeakReference<ProgressBar> progressBar;
 
     SimpleAsyncTask(TextView tv){
         mTextView = new WeakReference<>(tv);
