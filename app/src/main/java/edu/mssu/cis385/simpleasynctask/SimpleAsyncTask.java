@@ -8,13 +8,18 @@ import java.lang.ref.WeakReference;
 import java.nio.channels.AsynchronousChannelGroup;
 import java.util.Random;
 
-public class SimpleAsyncTask  extends AsyncTask<Void, Void, String> {
+public class SimpleAsyncTask  extends AsyncTask <Void, Void, String> {
 
     private WeakReference<TextView> mTextView;
-    private WeakReference<ProgressBar> progressBar;
 
     SimpleAsyncTask(TextView tv){
         mTextView = new WeakReference<>(tv);
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+
     }
 
     @Override
@@ -25,16 +30,24 @@ public class SimpleAsyncTask  extends AsyncTask<Void, Void, String> {
 
         int s = n * 200;
 
-        try {
-            Thread.sleep(s);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        {
+            try {
+                Thread.sleep(s);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+
+            return "Awake at last after sleeping for " + s + " milliseconds!";
+
         }
-        return "Awake at last after sleeping for " + s + " milliseconds!";
     }
+
 
     protected void onPostExecute(String result){
 
         mTextView.get().setText(result);
+
     }
+
 }
