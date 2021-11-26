@@ -1,25 +1,28 @@
 package edu.mssu.cis385.simpleasynctask;
 
 import android.os.AsyncTask;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
-import java.nio.channels.AsynchronousChannelGroup;
 import java.util.Random;
 
-public class SimpleAsyncTask  extends AsyncTask <Void, Void, String> {
+public class SimpleAsyncTask  extends AsyncTask <Void, Integer, String> {
 
     private WeakReference<TextView> mTextView;
+    private WeakReference<ProgressBar>progressBar;
 
-    SimpleAsyncTask(TextView tv){
-        mTextView = new WeakReference<>(tv);
+    SimpleAsyncTask(TextView mTextView, ProgressBar progressBar){
+
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
 
+        progressBar.get().setVisibility(View.VISIBLE);
+        progressBar.get().setProgress(0);
     }
 
     @Override
@@ -32,7 +35,10 @@ public class SimpleAsyncTask  extends AsyncTask <Void, Void, String> {
 
         {
             try {
-                Thread.sleep(s);
+                for(int i = 0; i < n; i++){
+                    progressBar.get().setProgress(((int) ((i / (float) n ) * 100)));
+
+                Thread.sleep(200);}
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         private int i = 0;
         private Handler handler = new Handler();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,30 +35,8 @@ public class MainActivity extends AppCompatActivity {
     public void startTask(View view) {
         mTextView.setText(R.string.napping);
 
-        new SimpleAsyncTask(mTextView).execute();
-    }
+        new SimpleAsyncTask(mTextView, progressBar).execute();
 
-    public void onClick(View v){
-        i = progressBar.getProgress();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (i < 100){
-                    i += 1;
-                }
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressBar.setProgress(i);
-                    }
-                });
-                try{
-                    Thread.sleep(100);
-                } catch (InterruptedException e){
-                    e.printStackTrace();
-                }
-            }
-        }).start();
     }
 
     @Override
